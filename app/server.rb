@@ -40,16 +40,43 @@ get '/users/new' do
 end
 
 post '/users' do
-  @user = User.create(:email => params[:email], 
-                     :password => params[:password],
-                     :password_confirmation => params[:password_confirmation])  
+  # we just initialize the object
+  # without saving it. It may be invalid
+  @user = User.new(:email => params[:email], 
+              :password => params[:password],
+              :password_confirmation => params[:password_confirmation])  
+  # let's try saving it
+  # if the model is valid,
+  # it will be saved
   if @user.save
     session[:user_id] = @user.id
     redirect to('/')
+    # if it's not valid,
+    # we'll show the same
+    # form again
   else
     flash.now[:errors] = @user.errors.full_messages
     erb :"users/new"
   end
 end
+
+ get '/sessions/new' do
+  erb :"sessions/new"
+end
+
+post '/sessions' do
+  email, password = params[:email], params[:password]
+  user = User.authenticate(email, password)
+  if user
+    session[:user_id] = user.id
+    redirect to('/')
+  else
+    flash[:errors] = ["The email or password are incorrect"]
+    erb :"sessions/new"
+  end
+end
+
+
+
 
 
