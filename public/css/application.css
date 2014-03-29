@@ -1,3 +1,15 @@
+
+
 body {
   background-color: gray;
+  background-image: url(/images/extra_clean_paper_@2X.png);
+
+}
+
+
+header #logo {
+	font-size: 20px; 
+	color: white; 
+	background-color: black;
+	padding: 12px;
 }
