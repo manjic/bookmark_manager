@@ -1,19 +1,22 @@
 <header>
-   <div id="logo">
-    <href="/">Bookmark Manager</href>
-    </div>
-    <!-- <href="/">Bookmark Manager</div> -->
-  <div id="user-links">
+  <div id="logo">
+    <a href="/">Bookmark Manager</a>
+  </div>
+  <div id="user-links">    
     <% if current_user %>
       <span id="welcome-message">
-        Welcome, <%= current_user.email %>
+        Welcome, <%= current_user.email %>  
       </span>
-
+    
       <form id="sign-out" method="post" action="/sessions">
         <input type="hidden" name="_method" value="delete">
-        <input type="submit" value="Sign out">
+        <input type="submit" value="Sign out" class='button'>
       </form>
-      <% end %> 
+    <% else %>
+      <button href='/users/new' id='sign-up' class='new-user button'>Sign up</button>
+      <button href='/sessions/new' id='sign-in' class='new-session button'>Sign in</button>      
+    <% end %>
+
   </div>
 </header>
 
